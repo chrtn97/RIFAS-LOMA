@@ -17,13 +17,11 @@
         .card-pago { background: #f8fafc; border: 2px dashed var(--bbva); border-radius: 15px; padding: 15px; margin-bottom: 20px; text-align: left; }
         .dato-bancario { font-family: monospace; font-size: 1.1em; font-weight: bold; color: #334155; display: block; margin: 5px 0; }
 
-        /* SECCIÓN ALEATORIA MEJORADA */
         .azar-box { background: #fffbeb; border: 2px solid var(--gold); padding: 15px; border-radius: 15px; margin-bottom: 20px; position: relative; }
         .azar-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
         .azar-controls input { width: 80px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold); text-align: center; font-size: 18px; }
         .btn-azar { background: var(--gold); color: #92400e; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-        /* RECUADRO DE NÚMEROS ELEGIDOS (TICKET) */
         #ticketSuerte { 
             display: none; background: white; border: 2px solid var(--success); 
             border-radius: 15px; padding: 15px; margin-top: 15px;
@@ -55,6 +53,8 @@
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5); z-index: 999; display: none;
         }
+
+        .footer { padding: 40px 20px; font-size: 14px; color: #64748b; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -69,6 +69,7 @@
     <div class="card-pago">
         <p style="margin: 0; font-size: 14px; color: #64748b;">Cuenta a nombre de: <b>Christian Alejandro Reyna Huerta</b></p>
         <span class="dato-bancario">4152314129681402 (BBVA)</span>
+        <span class="dato-bancario" style="font-size: 0.9em;">CLABE: 012 180 01529748649 5</span>
     </div>
 
     <div class="azar-box">
@@ -87,7 +88,7 @@
     </div>
 
     <div style="margin-bottom: 10px; font-size: 14px;">O busca uno manualmente:</div>
-    <input type="number" id="buscar" placeholder="🔍 Escribe tu número..." oninput="filtrarNumeros()" style="width:90%; padding:12px; border-radius:10px; border:1px solid #ccc;">
+    <input type="number" id="buscar" placeholder="🔍 Escribe tu número..." oninput="filtrarNumeros()" style="width:90%; padding:12px; border-radius:10px; border:1px solid #ccc; margin-bottom:10px;">
 
     <div class="grid-numeros" id="tablero">
         <p>Cargando tablero...</p>
@@ -109,6 +110,12 @@
         <button class="btn-confirmar" onclick="finalizarCompra()">✅ ENVIAR POR WHATSAPP</button>
         <button style="background:none; border:none; color:gray; width:100%; margin-top:10px; cursor:pointer" onclick="cerrarModal()">Cancelar</button>
     </div>
+</div>
+
+<div class="footer">
+    📍 <b>Tonalá, Jalisco.</b><br>
+    Sorteo basado en las últimas 3 cifras del Premio Mayor de la <b>Lotería Nacional</b>.<br>
+    💸 ¡Mucha suerte a todos los participantes! 💸
 </div>
 
 <script>
@@ -151,7 +158,6 @@
         const cantidad = parseInt(cantInput.value);
         if (isNaN(cantidad) || cantidad <= 0) { alert("¿Cuántos boletos quieres?"); return; }
 
-        // Limpiar selección previa
         seleccionados.forEach(n => {
             const el = document.getElementById("n-" + n);
             if(el) el.classList.remove('seleccionado');
@@ -172,7 +178,6 @@
             seleccionar(n, el);
         });
 
-        // MOSTRAR EL TICKET CON LOS NÚMEROS
         document.getElementById('ticketSuerte').style.display = 'block';
         document.getElementById('listaElegidos').innerText = elegidos.join(' - ');
     }
@@ -193,8 +198,6 @@
         btn.style.display = seleccionados.length > 0 ? 'block' : 'none';
         document.getElementById('cantidad').innerText = seleccionados.length;
         document.getElementById('resumenNumeros').innerText = seleccionados.join(', ');
-        
-        // Si borran todos manualmente, ocultar el ticket
         if(seleccionados.length === 0) document.getElementById('ticketSuerte').style.display = 'none';
     }
 

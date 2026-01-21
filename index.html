@@ -8,7 +8,6 @@
         :root { --primary: #1e40af; --gold: #fbbf24; --success: #22c55e; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; margin: 0; padding: 0; text-align: center; color: #1e293b; }
         
-        /* Encabezado IMPACTANTE */
         .header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); }
         .header h1 { margin: 0; font-size: 35px; letter-spacing: 3px; text-shadow: 2px 2px #000; }
         .premio-grande { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6); animation: pulse 2s infinite; }
@@ -21,7 +20,6 @@
         .buscador input { width: 90%; padding: 15px; border-radius: 15px; border: 3px solid #e2e8f0; font-size: 18px; text-align: center; margin: 15px 0; transition: 0.3s; }
         .buscador input:focus { border-color: var(--primary); outline: none; }
 
-        /* Tablero de Números */
         .grid-numeros { 
             display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 10px; 
             margin-top: 20px; max-height: 500px; overflow-y: auto; padding: 15px;
@@ -32,7 +30,6 @@
         .seleccionado { background: var(--primary) !important; color: white !important; border-color: #000 !important; box-shadow: 0 5px 10px rgba(30, 64, 175, 0.3); }
         .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; cursor: not-allowed !important; text-decoration: line-through; opacity: 0.5; }
 
-        /* MODAL DE DATOS */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
         .modal-content { background: white; margin: 15% auto; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: left; }
         .modal-content h2 { margin-top: 0; color: var(--primary); }
@@ -95,7 +92,8 @@
 
 <script>
     const WHATSAPP_CEL = "523321550408";
-    const URL_EXCEL_PAGADOS = https://docs.google.com/spreadsheets/d/e/2PACX-1vTunKPG1TATOAhqerk253nBPufFK_qGmOqMc8bZpIkTJZcoKdZ66wwFByyWnQeo2ju4V9ECUv8aM2vi/pub?output=csv ; // <--- PEGA TU LINK AQUÍ
+    // AQUÍ CORREGÍ EL ENLACE CON COMILLAS:
+    const URL_EXCEL_PAGADOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTunKPG1TATOAhqerk253nBPufFK_qGmOqMc8bZpIkTJZcoKdZ66wwFByyWnQeo2ju4V9ECUv8aM2vi/pub?output=csv';
 
     let seleccionados = [];
     let pagados = [];

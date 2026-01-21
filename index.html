@@ -28,7 +28,6 @@
         .seleccionado { background: var(--primary) !important; border-color: var(--primary); color: white !important; box-shadow: 0 0 10px var(--primary); }
         .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; text-decoration: line-through; opacity: 0.5; cursor: not-allowed; }
 
-        /* Controles Inferiores */
         .controles-flotantes { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 540px; display: none; flex-direction: column; gap: 10px; z-index: 999; }
         .btn-apartar-fijo { background: var(--success); color: white; border: none; padding: 18px; border-radius: 15px; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4); flex: 1; }
         .btn-limpiar-todo { background: var(--danger); color: white; border: none; padding: 10px; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; opacity: 0.9; }
@@ -36,7 +35,6 @@
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
         .modal-content { background: white; margin: 15% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; }
         
-        /* Etiquetas de números con botón de borrar */
         .tag-numero { display: inline-flex; align-items: center; background: #e0e7ff; color: #1e40af; padding: 5px 10px; border-radius: 8px; margin: 4px; font-weight: bold; border: 1px solid #c7d2fe; }
         .btn-del { margin-left: 8px; color: var(--danger); cursor: pointer; font-size: 16px; border: none; background: none; font-weight: 900; }
         
@@ -77,7 +75,6 @@
 <div id="modalFinal" class="modal">
     <div class="modal-content" style="text-align: left;">
         <h2>📝 Confirmar Apartado</h2>
-        <p style="font-size: 13px; color: gray;">Toca la (X) para quitar un número:</p>
         <div style="max-height: 150px; overflow-y: auto; background: #f8fafc; padding: 10px; border-radius: 10px; margin-bottom: 15px;" id="resumenFinal"></div>
         <input type="text" id="nombreCliente" placeholder="Nombre Completo" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;">
         <input type="tel" id="telCliente" placeholder="WhatsApp (10 dígitos)" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;">
@@ -145,7 +142,7 @@
             disponibles.splice(index, 1);
         }
         actualizarUI();
-        abrirModalFinal(); // Abre el resumen para que vea qué le tocó
+        abrirModalFinal();
     }
 
     function limpiarTodo() {
@@ -189,7 +186,11 @@
         const nombre = document.getElementById('nombreCliente').value;
         const tel = document.getElementById('telCliente').value;
         if(!nombre || !tel) { alert("Llena tus datos"); return; }
-        let mensaje = `*RIFAS LOMA 🍀*%0A*CLIENTE:* ${nombre}%0A✅ *MIS NÚMEROS:*%0A${seleccionados.join(', ')}%0A💰 *TOTAL:* $${seleccionados.length * 10} MXN%0A%0A⚠️ *Favor de enviar comprobante.*`;
+        
+        // DATOS DE PAGO INCLUIDOS AQUÍ
+        let total = seleccionados.length * 10;
+        let mensaje = `*RIFAS LOMA 🍀*%0A*CLIENTE:* ${nombre}%0A%0A✅ *MIS NÚMEROS:*%0A${seleccionados.join(', ')}%0A%0A💰 *TOTAL A PAGAR:* $${total} MXN%0A%0A---%0A🏦 *DATOS DE PAGO (BBVA):*%0A*Beneficiario:* Christian Alejandro Reyna Huerta%0A*Cuenta:* 4152314129681402%0A*CLABE:* 012 180 01529748649 5%0A%0A⚠️ *IMPORTANTE:* Por favor, envía tu comprobante de pago por aquí para confirmar tu participación.`;
+        
         window.open(`https://wa.me/${WHATSAPP_CEL}?text=${mensaje}`, '_blank');
         cerrarModalFinal();
     }

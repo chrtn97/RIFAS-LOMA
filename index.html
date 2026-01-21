@@ -10,7 +10,23 @@
         
         .header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); }
         .header h1 { margin: 0; font-size: 35px; letter-spacing: 3px; text-shadow: 2px 2px #000; }
-        .premio-grande { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6); }
+        
+        /* MOVIMIENTO ANIMADO PARA EL PREMIO (CÍRCULO NARANJA) */
+        .premio-grande { 
+            font-size: 50px; 
+            font-weight: 900; 
+            color: var(--gold); 
+            margin: 15px 0; 
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+            display: inline-block;
+            animation: pulse-suave 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-suave {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4)); }
+        }
 
         .container { max-width: 600px; margin: -20px auto 40px; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }
         

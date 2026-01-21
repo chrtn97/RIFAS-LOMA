@@ -3,135 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIFAS LOMA - ¡Gana $40,000! 🍀</title>
+    <title>RIFAS LOMA - ¡Gana $5,000! 🍀</title>
     <style>
-        :root { --primary: #1e40af; --gold: #fbbf24; --success: #22c55e; --bbva: #004481; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; margin: 0; padding: 0; text-align: center; color: #1e293b; }
+        :root { --primary: #1e40af; --gold: #fbbf24; --success: #22c55e; --danger: #ef4444; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; margin: 0; padding: 0; text-align: center; color: #1e293b; transition: padding-bottom 0.3s; }
         
         .header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); }
         .header h1 { margin: 0; font-size: 35px; letter-spacing: 3px; text-shadow: 2px 2px #000; }
         
-        /* MOVIMIENTO ANIMADO PARA EL PREMIO (CÍRCULO NARANJA) */
-        .premio-grande { 
-            font-size: 50px; 
-            font-weight: 900; 
-            color: var(--gold); 
-            margin: 15px 0; 
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
-            display: inline-block;
-            animation: pulse-suave 2s infinite ease-in-out;
-        }
+        .premio-grande { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6); display: inline-block; animation: pulse-suave 2s infinite ease-in-out; }
+        @keyframes pulse-suave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        @keyframes pulse-suave {
-            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4)); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8)); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4)); }
-        }
-
-        .container { max-width: 600px; margin: -20px auto 40px; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }
+        .container { max-width: 600px; margin: -20px auto 20px; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }
         
-        .card-pago { background: #f8fafc; border: 2px dashed var(--bbva); border-radius: 15px; padding: 15px; margin-bottom: 20px; text-align: left; }
-        .dato-bancario { font-family: monospace; font-size: 1.1em; font-weight: bold; color: #334155; display: block; margin: 5px 0; }
-
-        .azar-box { background: #fffbeb; border: 2px solid var(--gold); padding: 15px; border-radius: 15px; margin-bottom: 20px; position: relative; }
-        .azar-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
-        .azar-controls input { width: 80px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold); text-align: center; font-size: 18px; }
-        .btn-azar { background: var(--gold); color: #92400e; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-
-        #ticketSuerte { 
-            display: none; background: white; border: 2px solid var(--success); 
-            border-radius: 15px; padding: 15px; margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
-            animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .tools-section { background: #f8fafc; padding: 20px; border-radius: 20px; border: 1px solid #e2e8f0; margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
         
-        .numeros-lista { font-size: 24px; font-weight: 900; color: var(--success); letter-spacing: 2px; margin: 10px 0; }
-        .btn-apartar-ya { background: var(--success); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; }
+        .azar-control { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .azar-control input { width: 80px; padding: 10px; border-radius: 10px; border: 2px solid #cbd5e1; text-align: center; font-size: 16px; font-weight: bold; }
+        .btn-azar-go { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; }
 
-        .grid-numeros { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 10px; 
-            margin-top: 20px; max-height: 300px; overflow-y: auto; padding: 15px;
-            background: #f8fafc; border-radius: 15px; border: 1px solid #cbd5e1;
-        }
-        .boleto { padding: 15px 0; background: white; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: bold; cursor: pointer; }
-        .seleccionado { background: var(--primary) !important; color: white !important; }
-        .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; text-decoration: line-through; opacity: 0.5; }
+        .grid-numeros { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 12px; max-height: 400px; overflow-y: auto; padding: 15px; background: #fff; border-radius: 15px; border: 1px solid #cbd5e1; scroll-behavior: smooth; }
+        
+        .boleto { padding: 15px 5px; background: white; border: 1px solid #cbd5e1; border-radius: 12px; cursor: pointer; transition: 0.2s; }
+        .seleccionado { background: var(--primary) !important; border-color: var(--primary); color: white !important; box-shadow: 0 0 10px var(--primary); }
+        .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; text-decoration: line-through; opacity: 0.5; cursor: not-allowed; }
+
+        /* Controles Inferiores */
+        .controles-flotantes { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 540px; display: none; flex-direction: column; gap: 10px; z-index: 999; }
+        .btn-apartar-fijo { background: var(--success); color: white; border: none; padding: 18px; border-radius: 15px; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4); flex: 1; }
+        .btn-limpiar-todo { background: var(--danger); color: white; border: none; padding: 10px; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; opacity: 0.9; }
 
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 5% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; text-align: left; }
-        .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-
-        .btn-confirmar { background: var(--success); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; }
-        .btn-apartar-fijo { 
-            background: var(--success); color: white; border: none; padding: 22px; width: 90%; max-width: 540px;
-            border-radius: 20px; font-size: 20px; font-weight: bold; cursor: pointer; 
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5); z-index: 999; display: none;
-        }
-
-        .footer { padding: 40px 20px; font-size: 14px; color: #64748b; line-height: 1.6; }
+        .modal-content { background: white; margin: 15% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; }
+        
+        /* Etiquetas de números con botón de borrar */
+        .tag-numero { display: inline-flex; align-items: center; background: #e0e7ff; color: #1e40af; padding: 5px 10px; border-radius: 8px; margin: 4px; font-weight: bold; border: 1px solid #c7d2fe; }
+        .btn-del { margin-left: 8px; color: var(--danger); cursor: pointer; font-size: 16px; border: none; background: none; font-weight: 900; }
+        
+        .footer { padding: 20px 20px 120px; font-size: 14px; color: #64748b; line-height: 1.6; }
+        .legal-notice { background: #f1f5f9; padding: 10px; border-radius: 10px; margin-top: 10px; font-weight: bold; color: #475569; border: 1px dashed #cbd5e1; }
     </style>
 </head>
 <body>
 
 <div class="header">
     <h1>✨ RIFAS LOMA ✨</h1>
-    <div class="premio-grande">💰 $40,000 MXN 💰</div>
-    <div class="badge-precio" style="background:var(--success); color:white; padding:10px 20px; border-radius:50px; font-weight:bold;">¡Solo $40 pesitos! 🍀</div>
+    <div class="premio-grande">💰 $5,000 MXN 💰</div><br>
+    <div class="badge-precio" style="background:var(--success); color:white; padding:10px 25px; border-radius:50px; font-weight:bold; display:inline-block; margin-top:10px;">🍀 ¡Cada número por solo $10! 🍀</div>
 </div>
 
 <div class="container">
-    <div class="card-pago">
-        <p style="margin: 0; font-size: 14px; color: #64748b;">Cuenta a nombre de: <b>Christian Alejandro Reyna Huerta</b></p>
-        <span class="dato-bancario">4152314129681402 (BBVA)</span>
-        <span class="dato-bancario" style="font-size: 0.9em;">CLABE: 012 180 01529748649 5</span>
-    </div>
-
-    <div class="azar-box">
-        <h4>🎲 ¡Números al Azar!</h4>
-        <div class="azar-controls">
-            <input type="number" id="cantidadAzar" placeholder="Cant." min="1" max="20">
-            <button class="btn-azar" onclick="seleccionarAzar()">GENERAR SUERTE</button>
-        </div>
-
-        <div id="ticketSuerte">
-            <p style="margin:0; font-weight:bold; color:#1e293b;">Tus números elegidos:</p>
-            <div class="numeros-lista" id="listaElegidos">---</div>
-            <button class="btn-apartar-ya" onclick="abrirModal()">✅ APARTAR ESTOS NÚMEROS</button>
-            <p style="font-size:11px; margin-top:8px; color:gray;">(También se marcaron en el tablero de abajo)</p>
+    <div class="tools-section">
+        <div style="font-weight: bold; color: var(--primary);">🎲 ¿Cuántos números al azar quieres?</div>
+        <div class="azar-control">
+            <input type="number" id="cantidadAzar" placeholder="Ej: 5" min="1">
+            <button class="btn-azar-go" onclick="generarAzar()">¡Probar suerte!</button>
         </div>
     </div>
-
-    <div style="margin-bottom: 10px; font-size: 14px;">O busca uno manualmente:</div>
-    <input type="number" id="buscar" placeholder="🔍 Escribe tu número..." oninput="filtrarNumeros()" style="width:90%; padding:12px; border-radius:10px; border:1px solid #ccc; margin-bottom:10px;">
-
-    <div class="grid-numeros" id="tablero">
-        <p>Cargando tablero...</p>
-    </div>
-</div>
-
-<button id="btnFlotante" class="btn-apartar-fijo" onclick="abrirModal()">
-    🎰 APARTAR SELECCIÓN (<span id="cantidad">0</span>)
-</button>
-
-<div id="miModal" class="modal">
-    <div class="modal-content">
-        <h2>📝 Finalizar Apartado</h2>
-        <p style="font-size:14px;">Números: <b id="resumenNumeros"></b></p>
-        <label>Nombre Completo:</label>
-        <input type="text" id="nombreCliente" placeholder="Ej. Juan Pérez">
-        <label>Tu Teléfono:</label>
-        <input type="tel" id="telCliente" placeholder="33 1234 5678">
-        <button class="btn-confirmar" onclick="finalizarCompra()">✅ ENVIAR POR WHATSAPP</button>
-        <button style="background:none; border:none; color:gray; width:100%; margin-top:10px; cursor:pointer" onclick="cerrarModal()">Cancelar</button>
-    </div>
+    <div class="grid-numeros" id="tablero">Cargando números...</div>
 </div>
 
 <div class="footer">
     📍 <b>Tonalá, Jalisco.</b><br>
     Sorteo basado en las últimas 3 cifras del Premio Mayor de la <b>Lotería Nacional</b>.<br>
-    💸 ¡Mucha suerte a todos los participantes! 💸
+    <div class="legal-notice">⚖️ Sorteo realizado de forma transparente y totalmente legal.</div>
+</div>
+
+<div id="controlesFlotantes" class="controles-flotantes">
+    <button class="btn-limpiar-todo" onclick="limpiarTodo()">🗑️ Borrar toda la selección</button>
+    <button class="btn-apartar-fijo" onclick="abrirModalFinal()">✅ APARTAR (<span id="cantidadLabel">0</span>)</button>
+</div>
+
+<div id="modalFinal" class="modal">
+    <div class="modal-content" style="text-align: left;">
+        <h2>📝 Confirmar Apartado</h2>
+        <p style="font-size: 13px; color: gray;">Toca la (X) para quitar un número:</p>
+        <div style="max-height: 150px; overflow-y: auto; background: #f8fafc; padding: 10px; border-radius: 10px; margin-bottom: 15px;" id="resumenFinal"></div>
+        <input type="text" id="nombreCliente" placeholder="Nombre Completo" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;">
+        <input type="tel" id="telCliente" placeholder="WhatsApp (10 dígitos)" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;">
+        <button style="background:var(--success); color:white; border:none; padding:15px; width:100%; border-radius:12px; font-size:18px; font-weight:bold; cursor:pointer;" onclick="finalizarCompra()">✅ ENVIAR POR WHATSAPP</button>
+        <button style="background:none; border:none; color:gray; width:100%; margin-top:10px; cursor:pointer" onclick="cerrarModalFinal()">Regresar</button>
+    </div>
 </div>
 
 <script>
@@ -145,11 +97,7 @@
         try {
             const res = await fetch(URL_EXCEL_PAGADOS + '&t=' + Math.random());
             const csv = await res.text();
-            pagados = csv.split(/\r?\n/).map(linea => {
-                let numero = linea.split(',')[0].trim();
-                if (numero === "" || isNaN(numero)) return null;
-                return numero.padStart(3, '0');
-            }).filter(n => n !== null);
+            pagados = csv.split(/\r?\n/).map(l => l.split(',')[0].trim()).filter(n => n !== "" && !isNaN(n)).map(n => n.padStart(3, '0'));
             generarTablero();
         } catch (e) { generarTablero(); }
     }
@@ -157,91 +105,93 @@
     function generarTablero() {
         const tablero = document.getElementById('tablero');
         tablero.innerHTML = "";
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i <= 999; i++) {
             let n = i.toString().padStart(3, '0');
             let div = document.createElement('div');
             div.className = 'boleto';
-            div.id = "n-" + n;
-            div.innerText = n;
-            if (pagados.includes(n)) { div.classList.add('vendido'); } 
-            else { div.onclick = () => seleccionar(n, div); }
+            div.id = "b-" + n;
+            div.innerHTML = `<span class="n-principal">${n}</span>`;
+            if (pagados.includes(n)) div.classList.add('vendido');
+            else div.onclick = () => toggleSeleccion(n);
             tablero.appendChild(div);
         }
     }
 
-    function seleccionarAzar() {
-        const cantInput = document.getElementById('cantidadAzar');
-        const cantidad = parseInt(cantInput.value);
-        if (isNaN(cantidad) || cantidad <= 0) { alert("¿Cuántos boletos quieres?"); return; }
-
-        seleccionados.forEach(n => {
-            const el = document.getElementById("n-" + n);
-            if(el) el.classList.remove('seleccionado');
-        });
-        seleccionados = [];
-
-        let disponibles = [];
-        for (let i = 0; i < 1000; i++) {
-            let n = i.toString().padStart(3, '0');
-            if (!pagados.includes(n)) disponibles.push(n);
-        }
-
-        disponibles.sort(() => Math.random() - 0.5);
-        const elegidos = disponibles.slice(0, Math.min(cantidad, disponibles.length));
-
-        elegidos.forEach(n => {
-            const el = document.getElementById("n-" + n);
-            seleccionar(n, el);
-        });
-
-        document.getElementById('ticketSuerte').style.display = 'block';
-        document.getElementById('listaElegidos').innerText = elegidos.join(' - ');
-    }
-
-    function seleccionar(num, elemento) {
-        if (seleccionados.includes(num)) {
-            seleccionados = seleccionados.filter(item => item !== num);
-            if(elemento) elemento.classList.remove('seleccionado');
+    function toggleSeleccion(n) {
+        if (seleccionados.includes(n)) {
+            seleccionados = seleccionados.filter(item => item !== n);
+            document.getElementById("b-" + n).classList.remove('seleccionado');
         } else {
-            seleccionados.push(num);
-            if(elemento) elemento.classList.add('seleccionado');
+            seleccionados.push(n);
+            document.getElementById("b-" + n).classList.add('seleccionado');
         }
         actualizarUI();
     }
 
-    function actualizarUI() {
-        const btn = document.getElementById('btnFlotante');
-        btn.style.display = seleccionados.length > 0 ? 'block' : 'none';
-        document.getElementById('cantidad').innerText = seleccionados.length;
-        document.getElementById('resumenNumeros').innerText = seleccionados.join(', ');
-        if(seleccionados.length === 0) document.getElementById('ticketSuerte').style.display = 'none';
-    }
-
-    function filtrarNumeros() {
-        let val = document.getElementById('buscar').value;
-        if(val.length > 0) {
-            let n = val.padStart(3, '0').slice(-3);
-            const el = document.getElementById("n-" + n);
-            if(el) { 
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                el.style.border = "3px solid #fbbf24";
-                setTimeout(() => el.style.border = "1px solid #cbd5e1", 2000);
-            }
+    function generarAzar() {
+        const cant = parseInt(document.getElementById('cantidadAzar').value);
+        if (isNaN(cant) || cant <= 0) return;
+        let disponibles = [];
+        for(let i=0; i<=999; i++) {
+            let n = i.toString().padStart(3, '0');
+            if(!pagados.includes(n) && !seleccionados.includes(n)) disponibles.push(n);
         }
+        for(let i=0; i<cant; i++) {
+            if (disponibles.length === 0) break;
+            let index = Math.floor(Math.random() * disponibles.length);
+            let n = disponibles[index];
+            seleccionados.push(n);
+            document.getElementById("b-" + n).classList.add('seleccionado');
+            disponibles.splice(index, 1);
+        }
+        actualizarUI();
+        abrirModalFinal(); // Abre el resumen para que vea qué le tocó
     }
 
-    function abrirModal() { document.getElementById('miModal').style.display = 'block'; }
-    function cerrarModal() { document.getElementById('miModal').style.display = 'none'; }
+    function limpiarTodo() {
+        if(!confirm("¿Borrar todos los números elegidos?")) return;
+        seleccionados.forEach(n => document.getElementById("b-" + n).classList.remove('seleccionado'));
+        seleccionados = [];
+        actualizarUI();
+    }
+
+    function quitarUno(n) {
+        seleccionados = seleccionados.filter(item => item !== n);
+        const el = document.getElementById("b-" + n);
+        if(el) el.classList.remove('seleccionado');
+        actualizarUI();
+        renderResumen();
+        if(seleccionados.length === 0) cerrarModalFinal();
+    }
+
+    function actualizarUI() {
+        const cont = document.getElementById('controlesFlotantes');
+        document.getElementById('cantidadLabel').innerText = seleccionados.length;
+        cont.style.display = seleccionados.length > 0 ? 'flex' : 'none';
+        document.body.style.paddingBottom = seleccionados.length > 0 ? "150px" : "0px";
+    }
+
+    function renderResumen() {
+        document.getElementById('resumenFinal').innerHTML = seleccionados.map(n => `
+            <span class="tag-numero">
+                ${n} <button class="btn-del" onclick="quitarUno('${n}')">×</button>
+            </span>
+        `).join('');
+    }
+
+    function abrirModalFinal() { 
+        renderResumen();
+        document.getElementById('modalFinal').style.display = 'block'; 
+    }
+    function cerrarModalFinal() { document.getElementById('modalFinal').style.display = 'none'; }
 
     function finalizarCompra() {
         const nombre = document.getElementById('nombreCliente').value;
         const tel = document.getElementById('telCliente').value;
-        if(!nombre || !tel) { alert("Por favor pon tu nombre y teléfono"); return; }
-        
-        let total = seleccionados.length * 40;
-        let mensaje = `*RIFAS LOMA 🍀*%0A*CLIENTE:* ${nombre}%0A*TEL:* ${tel}%0A%0A✅ *NÚMEROS:* ${seleccionados.join(', ')}%0A💰 *TOTAL:* $${total} MXN`;
+        if(!nombre || !tel) { alert("Llena tus datos"); return; }
+        let mensaje = `*RIFAS LOMA 🍀*%0A*CLIENTE:* ${nombre}%0A✅ *MIS NÚMEROS:*%0A${seleccionados.join(', ')}%0A💰 *TOTAL:* $${seleccionados.length * 10} MXN%0A%0A⚠️ *Favor de enviar comprobante.*`;
         window.open(`https://wa.me/${WHATSAPP_CEL}?text=${mensaje}`, '_blank');
-        cerrarModal();
+        cerrarModalFinal();
     }
 
     cargarPagados();

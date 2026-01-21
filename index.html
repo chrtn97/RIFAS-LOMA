@@ -10,38 +10,42 @@
         
         .header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); }
         .header h1 { margin: 0; font-size: 35px; letter-spacing: 3px; text-shadow: 2px 2px #000; }
-        .premio-grande { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        
-        .badge-precio { background: var(--success); color: white; padding: 10px 25px; border-radius: 50px; font-size: 22px; font-weight: bold; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); display: inline-block; }
+        .premio-grande { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6); }
 
         .container { max-width: 600px; margin: -20px auto 40px; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }
         
-        /* SECCIÓN DE PAGO */
         .card-pago { background: #f8fafc; border: 2px dashed var(--bbva); border-radius: 15px; padding: 15px; margin-bottom: 20px; text-align: left; }
-        .dato-bancario { font-family: monospace; font-size: 1.1em; font-weight: bold; color: #334155; background: #fff; padding: 5px 10px; border-radius: 5px; border: 1px solid #e2e8f0; display: block; margin: 5px 0; }
+        .dato-bancario { font-family: monospace; font-size: 1.1em; font-weight: bold; color: #334155; display: block; margin: 5px 0; }
 
-        /* SECCIÓN ALEATORIA */
-        .azar-box { background: #fffbeb; border: 2px solid var(--gold); padding: 15px; border-radius: 15px; margin-bottom: 20px; }
-        .azar-box h4 { margin: 0 0 10px 0; color: #92400e; }
-        .azar-controls { display: flex; justify-content: center; gap: 10px; }
+        /* SECCIÓN ALEATORIA MEJORADA */
+        .azar-box { background: #fffbeb; border: 2px solid var(--gold); padding: 15px; border-radius: 15px; margin-bottom: 20px; position: relative; }
+        .azar-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
         .azar-controls input { width: 80px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold); text-align: center; font-size: 18px; }
-        .btn-azar { background: var(--gold); color: #92400e; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-azar:hover { transform: scale(1.05); background: #f59e0b; }
+        .btn-azar { background: var(--gold); color: #92400e; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-        .buscador input { width: 90%; padding: 15px; border-radius: 15px; border: 3px solid #e2e8f0; font-size: 18px; text-align: center; margin-bottom: 15px; }
+        /* RECUADRO DE NÚMEROS ELEGIDOS (TICKET) */
+        #ticketSuerte { 
+            display: none; background: white; border: 2px solid var(--success); 
+            border-radius: 15px; padding: 15px; margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .numeros-lista { font-size: 24px; font-weight: 900; color: var(--success); letter-spacing: 2px; margin: 10px 0; }
+        .btn-apartar-ya { background: var(--success); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; }
 
         .grid-numeros { 
             display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 10px; 
-            margin-top: 20px; max-height: 400px; overflow-y: auto; padding: 15px;
+            margin-top: 20px; max-height: 300px; overflow-y: auto; padding: 15px;
             background: #f8fafc; border-radius: 15px; border: 1px solid #cbd5e1;
         }
-        .boleto { padding: 15px 0; background: white; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .seleccionado { background: var(--primary) !important; color: white !important; border-color: #000 !important; }
-        .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; cursor: not-allowed !important; text-decoration: line-through; opacity: 0.5; }
+        .boleto { padding: 15px 0; background: white; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        .seleccionado { background: var(--primary) !important; color: white !important; }
+        .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; text-decoration: line-through; opacity: 0.5; }
 
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 5% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; text-align: left; overflow-y: auto; max-height: 85vh; }
+        .modal-content { background: white; margin: 5% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; text-align: left; }
         .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 10px; box-sizing: border-box; }
 
         .btn-confirmar { background: var(--success); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; }
@@ -51,8 +55,6 @@
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5); z-index: 999; display: none;
         }
-
-        .footer { padding: 40px 20px; font-size: 14px; color: #64748b; }
     </style>
 </head>
 <body>
@@ -60,56 +62,53 @@
 <div class="header">
     <h1>✨ RIFAS LOMA ✨</h1>
     <div class="premio-grande">💰 $40,000 MXN 💰</div>
-    <div class="badge-precio">¡Solo $40 pesitos! 🍀</div>
+    <div class="badge-precio" style="background:var(--success); color:white; padding:10px 20px; border-radius:50px; font-weight:bold;">¡Solo $40 pesitos! 🍀</div>
 </div>
 
 <div class="container">
     <div class="card-pago">
-        <p style="margin: 0; font-size: 14px; color: #64748b;">BBVA: <b>Christian Alejandro Reyna Huerta</b></p>
-        <span class="dato-bancario">4152 3141 2968 1402</span>
-        <span class="dato-bancario">012 180 01529748649 5</span>
+        <p style="margin: 0; font-size: 14px; color: #64748b;">Paga a: <b>Christian Alejandro Reyna Huerta</b></p>
+        <span class="dato-bancario">4152 3141 2968 1402 (BBVA)</span>
     </div>
 
     <div class="azar-box">
-        <h4>🎲 ¡Prueba tu suerte!</h4>
+        <h4>🎲 ¡Números al Azar!</h4>
         <div class="azar-controls">
-            <input type="number" id="cantidadAzar" placeholder="¿Cuántos?" min="1" max="20">
-            <button class="btn-azar" onclick="seleccionarAzar()">¡DAME NÚMEROS!</button>
+            <input type="number" id="cantidadAzar" placeholder="Cant." min="1" max="20">
+            <button class="btn-azar" onclick="seleccionarAzar()">GENERAR SUERTE</button>
         </div>
-        <p style="font-size: 12px; margin-top: 5px; color: #92400e;">Escribe cuántos boletos quieres al azar</p>
+
+        <div id="ticketSuerte">
+            <p style="margin:0; font-weight:bold; color:#1e293b;">Tus números elegidos:</p>
+            <div class="numeros-lista" id="listaElegidos">---</div>
+            <button class="btn-apartar-ya" onclick="abrirModal()">✅ APARTAR ESTOS NÚMEROS</button>
+            <p style="font-size:11px; margin-top:8px; color:gray;">(También se marcaron en el tablero de abajo)</p>
+        </div>
     </div>
 
-    <div class="buscador">
-        <input type="number" id="buscar" placeholder="🔍 Buscar un número específico..." oninput="filtrarNumeros()">
-    </div>
+    <div style="margin-bottom: 10px; font-size: 14px;">O busca uno manualmente:</div>
+    <input type="number" id="buscar" placeholder="🔍 Escribe tu número..." oninput="filtrarNumeros()" style="width:90%; padding:12px; border-radius:10px; border:1px solid #ccc;">
 
     <div class="grid-numeros" id="tablero">
-        <p>Cargando fortuna...</p>
+        <p>Cargando tablero...</p>
     </div>
 </div>
 
 <button id="btnFlotante" class="btn-apartar-fijo" onclick="abrirModal()">
-    🎰 APARTAR MIS NÚMEROS (<span id="cantidad">0</span>)
+    🎰 APARTAR SELECCIÓN (<span id="cantidad">0</span>)
 </button>
 
 <div id="miModal" class="modal">
     <div class="modal-content">
-        <h2>📝 Confirmar Apartado</h2>
-        <div style="background: #eff6ff; padding: 10px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; border-left: 4px solid var(--primary);">
-            BBVA: <b>Christian Alejandro Reyna Huerta</b><br>
-            Tarjeta: <code style="font-weight:bold;">4152314129681402</code>
-        </div>
+        <h2>📝 Finalizar Apartado</h2>
+        <p style="font-size:14px;">Números: <b id="resumenNumeros"></b></p>
         <label>Nombre Completo:</label>
         <input type="text" id="nombreCliente" placeholder="Ej. Juan Pérez">
         <label>Tu Teléfono:</label>
         <input type="tel" id="telCliente" placeholder="33 1234 5678">
-        <button class="btn-confirmar" onclick="finalizarCompra()">✅ ENVIAR COMPROBANTE</button>
+        <button class="btn-confirmar" onclick="finalizarCompra()">✅ ENVIAR POR WHATSAPP</button>
         <button style="background:none; border:none; color:gray; width:100%; margin-top:10px; cursor:pointer" onclick="cerrarModal()">Cancelar</button>
     </div>
-</div>
-
-<div class="footer">
-    📍 <b>Tonalá, Jalisco.</b> | Mucha suerte 💸
 </div>
 
 <script>
@@ -147,57 +146,56 @@
         }
     }
 
-    // NUEVA FUNCIÓN PARA SELECCIÓN AL AZAR
     function seleccionarAzar() {
         const cantInput = document.getElementById('cantidadAzar');
         const cantidad = parseInt(cantInput.value);
-        
-        if (isNaN(cantidad) || cantidad <= 0) {
-            alert("Por favor pon cuántos boletos quieres.");
-            return;
-        }
+        if (isNaN(cantidad) || cantidad <= 0) { alert("¿Cuántos boletos quieres?"); return; }
 
-        // Limpiamos selección actual para que sea totalmente nueva si se desea
+        // Limpiar selección previa
         seleccionados.forEach(n => {
             const el = document.getElementById("n-" + n);
             if(el) el.classList.remove('seleccionado');
         });
         seleccionados = [];
 
-        // Buscamos números disponibles
         let disponibles = [];
         for (let i = 0; i < 1000; i++) {
             let n = i.toString().padStart(3, '0');
             if (!pagados.includes(n)) disponibles.push(n);
         }
 
-        // Mezclamos y elegimos
         disponibles.sort(() => Math.random() - 0.5);
-        const elegidos = disponibles.slice(0, cantidad);
+        const elegidos = disponibles.slice(0, Math.min(cantidad, disponibles.length));
 
         elegidos.forEach(n => {
             const el = document.getElementById("n-" + n);
             seleccionar(n, el);
         });
 
-        cantInput.value = "";
+        // MOSTRAR EL TICKET CON LOS NÚMEROS
+        document.getElementById('ticketSuerte').style.display = 'block';
+        document.getElementById('listaElegidos').innerText = elegidos.join(' - ');
     }
 
     function seleccionar(num, elemento) {
         if (seleccionados.includes(num)) {
             seleccionados = seleccionados.filter(item => item !== num);
-            elemento.classList.remove('seleccionado');
+            if(elemento) elemento.classList.remove('seleccionado');
         } else {
             seleccionados.push(num);
-            elemento.classList.add('seleccionado');
+            if(elemento) elemento.classList.add('seleccionado');
         }
-        actualizarBotonFijo();
+        actualizarUI();
     }
 
-    function actualizarBotonFijo() {
+    function actualizarUI() {
         const btn = document.getElementById('btnFlotante');
         btn.style.display = seleccionados.length > 0 ? 'block' : 'none';
         document.getElementById('cantidad').innerText = seleccionados.length;
+        document.getElementById('resumenNumeros').innerText = seleccionados.join(', ');
+        
+        // Si borran todos manualmente, ocultar el ticket
+        if(seleccionados.length === 0) document.getElementById('ticketSuerte').style.display = 'none';
     }
 
     function filtrarNumeros() {
@@ -219,15 +217,15 @@
     function finalizarCompra() {
         const nombre = document.getElementById('nombreCliente').value;
         const tel = document.getElementById('telCliente').value;
-        if(!nombre || !tel) { alert("Completa tus datos"); return; }
+        if(!nombre || !tel) { alert("Por favor pon tu nombre y teléfono"); return; }
+        
         let total = seleccionados.length * 40;
-        let mensaje = `*RIFAS LOMA 🍀*%0A*CLIENTE:* ${nombre}%0A*TEL:* ${tel}%0A%0A✅ *BOLETOS:* ${seleccionados.join(', ')}%0A💰 *TOTAL:* $${total} MXN`;
+        let mensaje = `*RIFAS LOMA 🍀*%0A*CLIENTE:* ${nombre}%0A*TEL:* ${tel}%0A%0A✅ *NÚMEROS:* ${seleccionados.join(', ')}%0A💰 *TOTAL:* $${total} MXN`;
         window.open(`https://wa.me/${WHATSAPP_CEL}?text=${mensaje}`, '_blank');
         cerrarModal();
     }
 
     cargarPagados();
 </script>
-
 </body>
 </html>

@@ -3,78 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIFAS LOMA - ¡Gana $40,000!</title>
+    <title>RIFAS LOMA - ¡Gana $40,000! 🍀</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 0; text-align: center; color: #333; }
-        .header { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: white; padding: 30px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .header h1 { margin: 0; font-size: 28px; letter-spacing: 2px; text-transform: uppercase; }
-        .premio-grande { font-size: 45px; font-weight: 900; color: #fbbf24; margin: 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .costo-boleto { background: #fbbf24; color: #1e3a8a; display: inline-block; padding: 8px 20px; border-radius: 25px; font-weight: bold; font-size: 20px; }
-
-        .container { max-width: 600px; margin: 20px auto; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        :root { --primary: #1e40af; --gold: #fbbf24; --success: #22c55e; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; margin: 0; padding: 0; text-align: center; color: #1e293b; }
         
-        .buscador { margin-bottom: 20px; }
-        .buscador input { width: 85%; padding: 14px; border-radius: 12px; border: 2px solid #3b82f6; font-size: 18px; text-align: center; outline: none; }
+        /* Encabezado IMPACTANTE */
+        .header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); }
+        .header h1 { margin: 0; font-size: 35px; letter-spacing: 3px; text-shadow: 2px 2px #000; }
+        .premio-grande { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        
+        .badge-precio { background: var(--success); color: white; padding: 10px 25px; border-radius: 50px; font-size: 22px; font-weight: bold; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); display: inline-block; }
 
+        .container { max-width: 600px; margin: -20px auto 40px; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }
+        
+        .buscador input { width: 90%; padding: 15px; border-radius: 15px; border: 3px solid #e2e8f0; font-size: 18px; text-align: center; margin: 15px 0; transition: 0.3s; }
+        .buscador input:focus { border-color: var(--primary); outline: none; }
+
+        /* Tablero de Números */
         .grid-numeros { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); 
-            gap: 8px; 
-            margin-top: 20px; 
-            max-height: 550px; 
-            overflow-y: auto; 
-            padding: 15px;
-            border: 1px solid #e2e8f0;
-            border-radius: 15px;
-            background: #f8fafc;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 10px; 
+            margin-top: 20px; max-height: 500px; overflow-y: auto; padding: 15px;
+            background: #f8fafc; border-radius: 15px; border: 1px solid #cbd5e1;
         }
-        
-        .boleto { padding: 12px 0; background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 15px; color: #1e293b; }
-        .boleto:hover { border-color: #3b82f6; background: #eff6ff; transform: translateY(-2px); }
-        
-        .seleccionado { background: #3b82f6 !important; color: white !important; border-color: #1e3a8a !important; box-shadow: 0 4px 10px rgba(59,130,246,0.5); }
-        .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; cursor: not-allowed !important; text-decoration: line-through; border: none !important; opacity: 0.6; }
+        .boleto { padding: 15px 0; background: white; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.2s; }
+        .boleto:hover { transform: translateY(-3px); border-color: var(--primary); color: var(--primary); }
+        .seleccionado { background: var(--primary) !important; color: white !important; border-color: #000 !important; box-shadow: 0 5px 10px rgba(30, 64, 175, 0.3); }
+        .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; cursor: not-allowed !important; text-decoration: line-through; opacity: 0.5; }
 
-        .btn-whatsapp { background: #25d366; color: white; border: none; padding: 22px; width: 100%; border-radius: 18px; font-size: 19px; font-weight: bold; cursor: pointer; margin-top: 25px; display: none; box-shadow: 0 6px 15px rgba(37,211,102,0.4); position: sticky; bottom: 10px; z-index: 100; }
-        .btn-whatsapp:active { transform: scale(0.96); }
+        /* MODAL DE DATOS */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+        .modal-content { background: white; margin: 15% auto; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: left; }
+        .modal-content h2 { margin-top: 0; color: var(--primary); }
+        .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
 
-        .footer { padding: 25px; font-size: 13px; color: #64748b; border-top: 1px solid #eee; margin-top: 20px; }
+        .btn-confirmar { background: var(--success); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
+        .btn-apartar-fijo { 
+            background: var(--success); color: white; border: none; padding: 22px; width: 90%; max-width: 540px;
+            border-radius: 20px; font-size: 20px; font-weight: bold; cursor: pointer; 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5); z-index: 999; display: none;
+        }
+
+        .footer { padding: 40px 20px; font-size: 14px; color: #64748b; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>RIFAS LOMA</h1>
-    <div class="premio-grande">$40,000 MXN</div>
-    <div class="costo-boleto">$40 pesos el boleto</div>
+    <h1>✨ RIFAS LOMA ✨</h1>
+    <div class="premio-grande">💰 $40,000 MXN 💰</div>
+    <div class="badge-precio">¡Solo $40 pesitos! 🍀</div>
 </div>
 
 <div class="container">
-    <p style="font-weight: bold; color: #1e40af;">🍀 ¡Busca tu número de la suerte! (000 - 999)</p>
+    <p>🚀 <b>¡Tu momento ha llegado!</b> Selecciona tus números:</p>
     
     <div class="buscador">
-        <input type="number" id="buscar" placeholder="Escribe el número aquí..." oninput="filtrarNumeros()">
+        <input type="number" id="buscar" placeholder="🔍 Buscar mi número..." oninput="filtrarNumeros()">
     </div>
 
     <div class="grid-numeros" id="tablero">
-        <p>Cargando lista de números...</p>
+        <p>Cargando fortuna...</p>
     </div>
+</div>
 
-    <button id="btnEnviar" class="btn-whatsapp" onclick="enviarWhatsApp()">
-        📱 APARTAR <span id="cantidad">0</span> NÚMEROS ($<span id="total">0</span>)
-    </button>
+<button id="btnFlotante" class="btn-apartar-fijo" onclick="abrirModal()">
+    🎰 APARTAR MIS NÚMEROS (<span id="cantidad">0</span>)
+</button>
+
+<div id="miModal" class="modal">
+    <div class="modal-content">
+        <h2>📝 Casi listo...</h2>
+        <p>Para apartar tus números necesitamos tus datos:</p>
+        <label>Nombre Completo:</label>
+        <input type="text" id="nombreCliente" placeholder="Ej. Juan Pérez">
+        <label>Número de Teléfono:</label>
+        <input type="tel" id="telCliente" placeholder="33 1234 5678">
+        <button class="btn-confirmar" onclick="finalizarCompra()">✅ ENVIAR Y PAGAR</button>
+        <button style="background:none; border:none; color:gray; width:100%; margin-top:10px; cursor:pointer" onclick="cerrarModal()">Cancelar</button>
+    </div>
 </div>
 
 <div class="footer">
+    📍 <b>Tonalá, Jalisco.</b><br>
     Sorteo basado en el Premio Mayor de la Lotería Nacional.<br>
-    <b>Tonalá, Jalisco.</b>
+    💸 ¡Mucha suerte a todos los participantes! 💸
 </div>
 
 <script>
-    // --- CONFIGURACIÓN ACTUALIZADA ---
-    const WHATSAPP_CEL = "523321550408"; // Tu número actualizado
-    const URL_EXCEL_PAGADOS = 'TU_LINK_DE_CSV_AQUI'; // <--- No olvides poner tu link de Google Sheets aquí
-    // ---------------------------------
+    const WHATSAPP_CEL = "523321550408";
+    const URL_EXCEL_PAGADOS = 'TU_LINK_DE_CSV_AQUI'; // <--- PEGA TU LINK AQUÍ
 
     let seleccionados = [];
     let pagados = [];
@@ -85,52 +106,21 @@
             const csv = await res.text();
             pagados = csv.split(/\r?\n/).map(n => n.trim().padStart(3, '0'));
             generarTablero();
-        } catch (e) {
-            generarTablero(); 
-        }
+        } catch (e) { generarTablero(); }
     }
 
     function generarTablero() {
         const tablero = document.getElementById('tablero');
         tablero.innerHTML = "";
-        
         for (let i = 0; i < 1000; i++) {
             let n = i.toString().padStart(3, '0');
             let div = document.createElement('div');
             div.className = 'boleto';
             div.id = "n-" + n;
             div.innerText = n;
-            
-            if (pagados.includes(n)) {
-                div.classList.add('vendido');
-            } else {
-                div.onclick = () => seleccionar(n, div);
-            }
+            if (pagados.includes(n)) { div.classList.add('vendido'); } 
+            else { div.onclick = () => seleccionar(n, div); }
             tablero.appendChild(div);
-        }
-    }
-
-    function filtrarNumeros() {
-        let valor = document.getElementById('buscar').value;
-        if (valor === "") return;
-        
-        let nBusqueda = valor.padStart(3, '0');
-        if (nBusqueda.length > 3) nBusqueda = nBusqueda.slice(-3);
-        
-        const el = document.getElementById("n-" + nBusqueda);
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            el.style.backgroundColor = "#fbbf24";
-            el.style.color = "#1e3a8a";
-            setTimeout(() => {
-                if (!seleccionados.includes(nBusqueda)) {
-                    el.style.backgroundColor = "#fff";
-                    el.style.color = "#1e293b";
-                } else {
-                    el.style.backgroundColor = "#3b82f6";
-                    el.style.color = "#fff";
-                }
-            }, 2500);
         }
     }
 
@@ -142,20 +132,46 @@
             seleccionados.push(num);
             elemento.classList.add('seleccionado');
         }
-        
-        const btn = document.getElementById('btnEnviar');
-        if (seleccionados.length > 0) {
-            btn.style.display = 'block';
-            document.getElementById('cantidad').innerText = seleccionados.length;
-            document.getElementById('total').innerText = seleccionados.length * 40;
-        } else {
-            btn.style.display = 'none';
+        const btn = document.getElementById('btnFlotante');
+        btn.style.display = seleccionados.length > 0 ? 'block' : 'none';
+        document.getElementById('cantidad').innerText = seleccionados.length;
+    }
+
+    function filtrarNumeros() {
+        let val = document.getElementById('buscar').value;
+        if(val.length > 0) {
+            let n = val.padStart(3, '0').slice(-3);
+            const el = document.getElementById("n-" + n);
+            if(el) { 
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.style.border = "3px solid #fbbf24";
+                setTimeout(() => el.style.border = "1px solid #cbd5e1", 2000);
+            }
         }
     }
 
-    function enviarWhatsApp() {
-        let mensaje = `*RIFAS LOMA 🍀*%0A¡Hola! Quiero apartar estos números:%0A%0A*BOLETOS:* ${seleccionados.join(', ')}%0A*TOTAL:* $${seleccionados.length * 40} MXN%0A%0A_En un momento enviaré mi comprobante de pago a este número._`;
+    function abrirModal() { document.getElementById('miModal').style.display = 'block'; }
+    function cerrarModal() { document.getElementById('miModal').style.display = 'none'; }
+
+    function finalizarCompra() {
+        const nombre = document.getElementById('nombreCliente').value;
+        const tel = document.getElementById('telCliente').value;
+        
+        if(!nombre || !tel) {
+            alert("Por favor completa tus datos para continuar");
+            return;
+        }
+
+        let total = seleccionados.length * 40;
+        let mensaje = `*RIFAS LOMA 🍀*%0A`;
+        mensaje += `*CLIENTE:* ${nombre}%0A`;
+        mensaje += `*TELÉFONO:* ${tel}%0A%0A`;
+        mensaje += `✅ *NÚMEROS APARTADOS:* ${seleccionados.join(', ')}%0A`;
+        mensaje += `💰 *TOTAL A PAGAR:* $${total} MXN%0A%0A`;
+        mensaje += `_Envío mi comprobante de pago a continuación._`;
+        
         window.open(`https://wa.me/${WHATSAPP_CEL}?text=${mensaje}`, '_blank');
+        cerrarModal();
     }
 
     cargarPagados();

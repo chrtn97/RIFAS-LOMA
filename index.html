@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RIFAS LOMA - ¡Gana $40,000! 🍀</title>
     <style>
-        :root { --primary: #1e40af; --gold: #fbbf24; --success: #22c55e; }
+        :root { --primary: #1e40af; --gold: #fbbf24; --success: #22c55e; --bbva: #004481; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; margin: 0; padding: 0; text-align: center; color: #1e293b; }
         
         .header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); }
@@ -17,6 +17,11 @@
 
         .container { max-width: 600px; margin: -20px auto 40px; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }
         
+        /* SECCIÓN DE PAGO */
+        .card-pago { background: #f8fafc; border: 2px dashed var(--bbva); border-radius: 15px; padding: 15px; margin: 20px 0; text-align: left; }
+        .card-pago h3 { color: var(--bbva); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        .dato-bancario { font-family: monospace; font-size: 1.1em; font-weight: bold; color: #334155; background: #fff; padding: 5px 10px; border-radius: 5px; border: 1px solid #e2e8f0; display: block; margin: 5px 0; }
+
         .buscador input { width: 90%; padding: 15px; border-radius: 15px; border: 3px solid #e2e8f0; font-size: 18px; text-align: center; margin: 15px 0; transition: 0.3s; }
         .buscador input:focus { border-color: var(--primary); outline: none; }
 
@@ -27,11 +32,11 @@
         }
         .boleto { padding: 15px 0; background: white; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.2s; }
         .boleto:hover { transform: translateY(-3px); border-color: var(--primary); color: var(--primary); }
-        .seleccionado { background: var(--primary) !important; color: white !important; border-color: #000 !important; box-shadow: 0 5px 10px rgba(30, 64, 175, 0.3); }
+        .seleccionado { background: var(--primary) !important; color: white !important; border-color: #000 !important; }
         .vendido { background: #e2e8f0 !important; color: #94a3b8 !important; cursor: not-allowed !important; text-decoration: line-through; opacity: 0.5; }
 
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 15% auto; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: left; }
+        .modal-content { background: white; margin: 5% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; text-align: left; overflow-y: auto; max-height: 85vh; }
         .modal-content h2 { margin-top: 0; color: var(--primary); }
         .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
 
@@ -56,7 +61,16 @@
 </div>
 
 <div class="container">
-    <p>🚀 <b>¡Tu momento ha llegado!</b> Selecciona tus números:</p>
+    <div class="card-pago">
+        <h3>🏦 Datos de Pago (BBVA)</h3>
+        <p style="margin: 5px 0; font-size: 14px; color: #64748b;">A nombre de: <b>Christian Alejandro Reyna Huerta</b></p>
+        <span style="font-size: 12px; color: var(--bbva); font-weight: bold;">TARJETA:</span>
+        <span class="dato-bancario">4152 3141 2968 1402</span>
+        <span style="font-size: 12px; color: var(--bbva); font-weight: bold;">CLABE INTERBANCARIA:</span>
+        <span class="dato-bancario">012 180 01529748649 5</span>
+    </div>
+
+    <p>🚀 <b>¡Selecciona tus números de la suerte!</b></p>
     
     <div class="buscador">
         <input type="number" id="buscar" placeholder="🔍 Buscar mi número..." oninput="filtrarNumeros()">
@@ -73,13 +87,20 @@
 
 <div id="miModal" class="modal">
     <div class="modal-content">
-        <h2>📝 Casi listo...</h2>
-        <p>Para apartar tus números necesitamos tus datos:</p>
-        <label>Nombre Completo:</label>
+        <h2>📝 Confirmar Apartado</h2>
+        
+        <div style="background: #eff6ff; padding: 10px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; border-left: 4px solid var(--primary);">
+            <b>Paga tus boletos aquí:</b><br>
+            Christian Alejandro Reyna Huerta<br>
+            BBVA: <code style="font-weight:bold;">4152314129681402</code>
+        </div>
+
+        <label>Tu Nombre Completo:</label>
         <input type="text" id="nombreCliente" placeholder="Ej. Juan Pérez">
-        <label>Número de Teléfono:</label>
+        <label>Tu Teléfono:</label>
         <input type="tel" id="telCliente" placeholder="33 1234 5678">
-        <button class="btn-confirmar" onclick="finalizarCompra()">✅ ENVIAR Y PAGAR</button>
+        
+        <button class="btn-confirmar" onclick="finalizarCompra()">✅ ENVIAR COMPROBANTE</button>
         <button style="background:none; border:none; color:gray; width:100%; margin-top:10px; cursor:pointer" onclick="cerrarModal()">Cancelar</button>
     </div>
 </div>
@@ -87,7 +108,7 @@
 <div class="footer">
     📍 <b>Tonalá, Jalisco.</b><br>
     Sorteo basado en el Premio Mayor de la Lotería Nacional.<br>
-    💸 ¡Mucha suerte a todos los participantes! 💸
+    💸 ¡Mucha suerte! 💸
 </div>
 
 <script>
@@ -99,23 +120,15 @@
 
     async function cargarPagados() {
         try {
-            // EL TRUCO: Agregamos un número aleatorio al final para evitar el retraso de Google
             const res = await fetch(URL_EXCEL_PAGADOS + '&t=' + Math.random());
             const csv = await res.text();
-            
-            // EL TRUCO DE COMPATIBILIDAD: Limpiamos cada celda, quitamos espacios
-            // y si el número es "59", lo convertimos en "059" automáticamente.
             pagados = csv.split(/\r?\n/).map(linea => {
-                let numero = linea.split(',')[0].trim(); // Solo leemos la primera columna
+                let numero = linea.split(',')[0].trim();
                 if (numero === "" || isNaN(numero)) return null;
-                return numero.padStart(3, '0'); // Convierte "59" en "059"
+                return numero.padStart(3, '0');
             }).filter(n => n !== null);
-
             generarTablero();
-        } catch (e) { 
-            console.error("Error cargando Excel:", e);
-            generarTablero(); 
-        }
+        } catch (e) { generarTablero(); }
     }
 
     function generarTablero() {
@@ -127,12 +140,8 @@
             div.className = 'boleto';
             div.id = "n-" + n;
             div.innerText = n;
-            
-            if (pagados.includes(n)) { 
-                div.classList.add('vendido'); 
-            } else { 
-                div.onclick = () => seleccionar(n, div); 
-            }
+            if (pagados.includes(n)) { div.classList.add('vendido'); } 
+            else { div.onclick = () => seleccionar(n, div); }
             tablero.appendChild(div);
         }
     }
@@ -169,20 +178,10 @@
     function finalizarCompra() {
         const nombre = document.getElementById('nombreCliente').value;
         const tel = document.getElementById('telCliente').value;
-        
-        if(!nombre || !tel) {
-            alert("Por favor completa tus datos para continuar");
-            return;
-        }
+        if(!nombre || !tel) { alert("Completa tus datos"); return; }
 
         let total = seleccionados.length * 40;
-        let mensaje = `*RIFAS LOMA 🍀*%0A`;
-        mensaje += `*CLIENTE:* ${nombre}%0A`;
-        mensaje += `*TELÉFONO:* ${tel}%0A%0A`;
-        mensaje += `✅ *NÚMEROS APARTADOS:* ${seleccionados.join(', ')}%0A`;
-        mensaje += `💰 *TOTAL A PAGAR:* $${total} MXN%0A%0A`;
-        mensaje += `_Envío mi comprobante de pago a continuación._`;
-        
+        let mensaje = `*RIFAS LOMA 🍀*%0A*CLIENTE:* ${nombre}%0A*TEL:* ${tel}%0A%0A✅ *BOLETOS:* ${seleccionados.join(', ')}%0A💰 *TOTAL:* $${total} MXN%0A%0A_Ya tengo mis datos de BBVA, procedo a enviar el comprobante._`;
         window.open(`https://wa.me/${WHATSAPP_CEL}?text=${mensaje}`, '_blank');
         cerrarModal();
     }

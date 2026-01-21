@@ -92,7 +92,6 @@
 
 <script>
     const WHATSAPP_CEL = "523321550408";
-    // AQUÍ CORREGÍ EL ENLACE CON COMILLAS:
     const URL_EXCEL_PAGADOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTunKPG1TATOAhqerk253nBPufFK_qGmOqMc8bZpIkTJZcoKdZ66wwFByyWnQeo2ju4V9ECUv8aM2vi/pub?output=csv';
 
     let seleccionados = [];
@@ -100,11 +99,23 @@
 
     async function cargarPagados() {
         try {
-            const res = await fetch(URL_EXCEL_PAGADOS + '&cache=' + new Date().getTime());
+            // EL TRUCO: Agregamos un número aleatorio al final para evitar el retraso de Google
+            const res = await fetch(URL_EXCEL_PAGADOS + '&t=' + Math.random());
             const csv = await res.text();
-            pagados = csv.split(/\r?\n/).map(n => n.trim().padStart(3, '0'));
+            
+            // EL TRUCO DE COMPATIBILIDAD: Limpiamos cada celda, quitamos espacios
+            // y si el número es "59", lo convertimos en "059" automáticamente.
+            pagados = csv.split(/\r?\n/).map(linea => {
+                let numero = linea.split(',')[0].trim(); // Solo leemos la primera columna
+                if (numero === "" || isNaN(numero)) return null;
+                return numero.padStart(3, '0'); // Convierte "59" en "059"
+            }).filter(n => n !== null);
+
             generarTablero();
-        } catch (e) { generarTablero(); }
+        } catch (e) { 
+            console.error("Error cargando Excel:", e);
+            generarTablero(); 
+        }
     }
 
     function generarTablero() {
@@ -116,8 +127,12 @@
             div.className = 'boleto';
             div.id = "n-" + n;
             div.innerText = n;
-            if (pagados.includes(n)) { div.classList.add('vendido'); } 
-            else { div.onclick = () => seleccionar(n, div); }
+            
+            if (pagados.includes(n)) { 
+                div.classList.add('vendido'); 
+            } else { 
+                div.onclick = () => seleccionar(n, div); 
+            }
             tablero.appendChild(div);
         }
     }

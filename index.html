@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIFAS LOMA - ¡Gana $40,000!</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 0; text-align: center; color: #333; }
+        .header { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: white; padding: 35px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .header h1 { margin: 0; font-size: 32px; letter-spacing: 2px; text-transform: uppercase; }
+        .premio-grande { font-size: 55px; font-weight: 900; color: #fbbf24; margin: 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .costo-boleto { background: #fbbf24; color: #1e3a8a; display: inline-block; padding: 8px 20px; border-radius: 25px; font-weight: bold; font-size: 22px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        .container { max-width: 500px; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        
+        .aviso-tiempo { background: #fff9db; border: 1px solid #f59e0b; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; color: #92400e; line-height: 1.4; }
+
+        .grid-numeros { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
+        .boleto { padding: 15px 0; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 20px; color: #1e293b; }
+        .boleto:hover { border-color: #3b82f6; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        
+        .seleccionado { background: #3b82f6 !important; color: white !important; border-color: #1e3a8a !important; transform: scale(1.1); z-index: 10; }
+        .vendido { background: #e5e7eb !important; color: #9ca3af !important; cursor: not-allowed !important; text-decoration: line-through; border: none !important; opacity: 0.5; }
+
+        .btn-whatsapp { background: #25d366; color: white; border: none; padding: 22px; width: 100%; border-radius: 18px; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 30px; display: none; box-shadow: 0 6px 15px rgba(37,211,102,0.4); transition: 0.3s; }
+        .btn-whatsapp:active { transform: scale(0.95); }
+
+        .footer { padding: 30px; font-size: 12px; color: #94a3b8; border-top: 1px solid #eee; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>RIFAS LOMA</h1>
+    <p style="margin:5px 0; opacity: 0.9;">¡Tu suerte empieza aquí!</p>
+    <div class="premio-grande">$40,000 MXN</div>
+    <div class="costo-boleto">$40 pesos</div>
+</div>
+
+<div class="container">
+    <div class="aviso-tiempo">
+        🕒 <b>REGLA DE APARTADO:</b><br>
+        Tienes <b>24 horas</b> para reportar tu pago. Después de ese tiempo, el número se tacha o se libera.
+    </div>
+
+    <label style="font-size: 18px; font-weight: bold; color: #1e3a8a;">👇 SELECCIONA TUS NÚMEROS:</label>
+    <div class="grid-numeros" id="tablero">
+        <p>Cargando lista de números...</p>
+    </div>
+
+    <button id="btnEnviar" class="btn-whatsapp" onclick="enviarWhatsApp()">
+        📱 APARTAR <span id="cantidad">0</span> NÚMEROS POR $<span id="total">0</span>
+    </button>
+</div>
+
+<div class="footer">
+    Evento basado en los últimos dígitos del Premio Mayor.<br>
+    <b>Lomas de Tonalá, Jalisco.</b>
+</div>
+
+<script>
+    // --- CONFIGURACIÓN (REEMPLAZA ESTO) ---
+    const WHATSAPP_CEL = "523312345678"; // Tu número con 52
+    const URL_EXCEL_PAGADOS = 'TU_LINK_DE_GOOGLE_SHEETS_AQUI'; // El CSV de tu Excel
+    // --------------------------------------
+
+    let seleccionados = [];
+    let pagados = [];
+
+    async function cargarPagados() {
+        try {
+            const res = await fetch(URL_EXCEL_PAGADOS + '&cache=' + new Date().getTime());
+            const csv = await res.text();
+            // Limpia los números del Excel (quita espacios y asegura que tengan 2 dígitos)
+            pagados = csv.split(/\r?\n/).map(n => n.trim().padStart(2, '0'));
+            generarTablero();
+        } catch (e) {
+            generarTablero(); 
+        }
+    }
+
+    function generarTablero() {
+        const tablero = document.getElementById('tablero');
+        tablero.innerHTML = "";
+        
+        for (let i = 0; i < 100; i++) {
+            let n = i.toString().padStart(2, '0');
+            let div = document.createElement('div');
+            div.className = 'boleto';
+            div.innerText = n;
+            
+            if (pagados.includes(n)) {
+                div.classList.add('vendido');
+            } else {
+                div.onclick = () => seleccionar(n, div);
+            }
+            tablero.appendChild(div);
+        }
+    }
+
+    function seleccionar(num, elemento) {
+        if (seleccionados.includes(num)) {
+            seleccionados = seleccionados.filter(item => item !== num);
+            elemento.classList.remove('seleccionado');
+        } else {
+            seleccionados.push(num);
+            elemento.classList.add('seleccionado');
+        }
+        
+        const btn = document.getElementById('btnEnviar');
+        if (seleccionados.length > 0) {
+            btn.style.display = 'block';
+            document.getElementById('cantidad').innerText = seleccionados.length;
+            document.getElementById('total').innerText = seleccionados.length * 40;
+        } else {
+            btn.style.display = 'none';
+        }
+    }
+
+    function enviarWhatsApp() {
+        let mensaje = `*RIFAS LOMA 🍀*%0A`;
+        mensaje += `Hola, quiero apartar estos números:%0A%0A`;
+        mensaje += `*BOLETOS:* ${seleccionados.join(', ')}%0A`;
+        mensaje += `*TOTAL:* $${seleccionados.length * 40} MXN%0A%0A`;
+        mensaje += `Confirmo que enviaré mi comprobante en menos de 24 horas. ¿Me das los datos de pago?`;
+        
+        window.open(`https://wa.me/${WHATSAPP_CEL}?text=${mensaje}`, '_blank');
+    }
+
+    cargarPagados();
+</script>
+
+</body>
+</html>
